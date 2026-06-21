@@ -5,9 +5,10 @@ project(http_server)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 查找 OpenSSL 和 CURL
+# 查找 OpenSSL 和 CURL 和 opencv
 find_package(OpenSSL REQUIRED)
 find_package(CURL REQUIRED)
+find_package(OpenCV REQUIRED)
 
 # 添加头文件路径
 include_directories(
@@ -29,9 +30,12 @@ find_library(MYSQLCPPCONN_LIBRARY
     PATHS /usr/lib /usr/lib64 /usr/local/lib
 )
 
-find_library(ONNXRUNTIME_LIBRARY
-    NAMES onnxruntime
-    PATHS /usr/lib /usr/lib64 /usr/local/lib
+set(ONNXRUNTIME_ROOT /usr/local/onnxruntime)
+
+include_directories(${ONNXRUNTIME_ROOT}/include)
+
+set(ONNXRUNTIME_LIBRARY
+    ${ONNXRUNTIME_ROOT}/lib/libonnxruntime.so
 )
 
 # 添加源文件
@@ -64,12 +68,8 @@ target_link_libraries(http_server
     crypto
     ${CURL_LIBRARIES}
     ${OPENCV4_LIBRARIES}
-    /usr/lib/x86_64-linux-gnu/libopencv_core.so
-    /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so
-    /usr/lib/x86_64-linux-gnu/libopencv_highgui.so
-    /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so
-    /usr/lib/x86_64-linux-gnu/libopencv_videoio.so
-    /usr/lib/x86_64-linux-gnu/libopencv_dnn.so
+    
+    ${OpenCV_LIBS}
 
     ${ONNXRUNTIME_LIBRARY}        # 自动查找的 ONNX Runtime 库
 

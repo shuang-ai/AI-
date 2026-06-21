@@ -6,7 +6,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-
 class HttpsClient 
 {
 public:
