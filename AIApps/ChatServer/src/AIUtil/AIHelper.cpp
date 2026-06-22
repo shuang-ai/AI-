@@ -160,12 +160,14 @@ json AIHelper::executeCurl(const json& payload) {
         throw std::runtime_error("curl_easy_perform() failed: " + std::string(curl_easy_strerror(res)));
     }
 
-    try {
-        return json::parse(readBuffer);
-    }
-    catch (...) {
-        throw std::runtime_error("Failed to parse JSON response: " + readBuffer);
-    }
+try {
+    json response = json::parse(readBuffer);
+    std::cout << "API Response: " << response.dump(4) << std::endl;  // 添加这行
+    return response;
+} catch (...) {
+    std::cout << "Raw response: " << readBuffer << std::endl;  // 添加这行
+    throw std::runtime_error("Failed to parse JSON response: " + readBuffer);
+}
 }
 
 // curl 回调函数，把返回的数据写到 string buffer

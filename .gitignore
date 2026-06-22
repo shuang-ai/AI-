@@ -65,3 +65,4 @@ HttpServer/images/  # 如果这些是运行时生成的图片
 *.backup
 *.old
 *.orig
+compile_commands.json

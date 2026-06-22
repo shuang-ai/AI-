@@ -130,7 +130,8 @@ std::string AliyunRAGStrategy::parseResponse(const json& response) const {
 
 
 std::string AliyunMcpStrategy::getApiUrl() const {
-    return "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+    // return "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+    return "api/v1/services/aigc/text-generation/generation";
 }
 
 std::string AliyunMcpStrategy::getApiKey()const {
